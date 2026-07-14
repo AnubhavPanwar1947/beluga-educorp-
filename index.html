@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Beluga Edu Corp</title>
+    <meta name="description" content="Beluga Edu Corp — simple education-focused website." />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="wrap nav">
+        <a class="brand" href="index.html">Beluga Edu Corp</a>
+        <ul class="nav-links">
+          <li><a href="index.html" aria-current="page">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="programs.html">Programs</a></li>
+          <li><a href="admissions.html">Admissions</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero wrap">
+        <h1>Learning that builds futures.</h1>
+        <p>
+          Beluga Edu Corp — placeholder homepage. Replace this copy after your
+          content discussion with your boss. Keep the site simple and fast.
+        </p>
+        <a class="button" href="contact.html">Talk to us</a>
+      </section>
+
+      <section class="section wrap">
+        <div class="card-grid">
+          <article class="card">
+            <h3>About</h3>
+            <p>Who we are and what we stand for.</p>
+          </article>
+          <article class="card">
+            <h3>Programs</h3>
+            <p>Short overview of courses and learning paths.</p>
+          </article>
+          <article class="card">
+            <h3>Admissions</h3>
+            <p>How to apply and what comes next.</p>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        © <span id="y"></span> Beluga Edu Corp. All rights reserved.
+      </div>
+    </footer>
+    <script>
+      document.getElementById("y").textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>
