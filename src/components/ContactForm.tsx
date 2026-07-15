@@ -1,31 +1,8 @@
 "use client";
 
 import { FormEvent, useState } from "react";
-import { getSupabase } from "@/lib/supabase";
 
 type Status = "idle" | "loading" | "success" | "error";
-
-function friendlyError(message: string): string {
-  const lower = message.toLowerCase();
-
-  if (lower.includes("failed to fetch") || lower.includes("network")) {
-    return "We couldn’t reach our servers. Please check your connection and try again.";
-  }
-  if (lower.includes("invalid api key") || lower.includes("jwt")) {
-    return "Something went wrong on our side. Please try again in a moment.";
-  }
-  if (lower.includes("row-level security") || lower.includes("rls")) {
-    return "Something went wrong on our side. Please try again in a moment.";
-  }
-  if (lower.includes("could not find the table") || lower.includes("schema cache")) {
-    return "Something went wrong on our side. Please try again in a moment.";
-  }
-  if (lower.includes("not configured") || lower.includes("missing")) {
-    return "The contact form is temporarily unavailable. Please email info@belugaeducorp.com.";
-  }
-
-  return "We couldn’t send your message right now. Please try again, or email info@belugaeducorp.com.";
-}
 
 export function ContactForm() {
   const [status, setStatus] = useState<Status>("idle");
@@ -45,27 +22,36 @@ export function ContactForm() {
       message: String(data.get("message") ?? "").trim(),
     };
 
-    const supabase = getSupabase();
-    if (!supabase) {
+    try {
+      // Practice Pelagic-style flow: browser → Next.js API → Supabase
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      const result = (await response.json().catch(() => null)) as {
+        ok?: boolean;
+        error?: string;
+      } | null;
+
+      if (!response.ok || !result?.ok) {
+        setStatus("error");
+        setError(
+          result?.error ||
+            "We couldn’t send your message right now. Please try again, or email info@belugaeducorp.com.",
+        );
+        return;
+      }
+
+      form.reset();
+      setStatus("success");
+    } catch {
       setStatus("error");
       setError(
-        "The contact form is temporarily unavailable. Please email info@belugaeducorp.com.",
+        "We couldn’t reach our servers. Please check your connection and try again.",
       );
-      return;
     }
-
-    const { error: insertError } = await supabase
-      .from("contact_messages")
-      .insert(payload);
-
-    if (insertError) {
-      setStatus("error");
-      setError(friendlyError(insertError.message));
-      return;
-    }
-
-    form.reset();
-    setStatus("success");
   }
 
   return (

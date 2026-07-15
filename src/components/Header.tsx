@@ -6,10 +6,10 @@ import { BelugaLogo } from "@/components/BelugaLogo";
 
 const links = [
   { href: "/", label: "Home" },
-  { href: "/about/", label: "About" },
-  { href: "/programs/", label: "Our Courses" },
-  { href: "/contact/", label: "Contact" },
-  { href: "/blog/", label: "Blog" },
+  { href: "/about", label: "About" },
+  { href: "/programs", label: "Our Courses" },
+  { href: "/contact", label: "Contact" },
+  { href: "/blog", label: "Blog" },
 ];
 
 function isActive(pathname: string, href: string) {

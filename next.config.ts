@@ -1,12 +1,15 @@
 import type { NextConfig } from "next";
 
-/** Static export so DreamHost shared hosting can serve the built files from /out */
+/**
+ * No static `output: "export"` while practicing Next.js API routes.
+ * API routes need a Node host: `next dev`, `next start`, or Vercel (Pelagic-style).
+ * DreamHost shared hosting cannot run /api/* — use Vercel for this practice site,
+ * and keep DreamHost for domain/DNS if needed.
+ */
 const nextConfig: NextConfig = {
-  output: "export",
   images: {
     unoptimized: true,
   },
-  trailingSlash: true,
 };
 
 export default nextConfig;
