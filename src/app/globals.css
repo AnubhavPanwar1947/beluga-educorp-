@@ -309,15 +309,16 @@ img {
 .section-lead {
   margin: 0.45rem 0 1.1rem;
   max-width: 42rem;
-  color: var(--muted);
-  font-size: 1.02rem;
+  color: var(--ink);
+  opacity: 0.88;
+  font-size: 1.05rem;
 }
 
 .prose p {
   margin: 0 0 1rem;
   max-width: 46rem;
-  color: var(--muted);
-  font-size: 1.02rem;
+  color: var(--ink);
+  font-size: 1.05rem;
 }
 
 .prose ol {
