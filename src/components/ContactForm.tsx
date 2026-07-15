@@ -9,22 +9,22 @@ function friendlyError(message: string): string {
   const lower = message.toLowerCase();
 
   if (lower.includes("failed to fetch") || lower.includes("network")) {
-    return "Network error talking to Supabase. Check your internet and NEXT_PUBLIC_SUPABASE_URL.";
+    return "We couldn’t reach our servers. Please check your connection and try again.";
   }
   if (lower.includes("invalid api key") || lower.includes("jwt")) {
-    return "Invalid Supabase anon key. Copy the anon/public key from Project Settings → API.";
+    return "Something went wrong on our side. Please try again in a moment.";
   }
   if (lower.includes("row-level security") || lower.includes("rls")) {
-    return "RLS blocked the insert. Run supabase/contact_messages.sql (insert policy for anon).";
+    return "Something went wrong on our side. Please try again in a moment.";
   }
   if (lower.includes("could not find the table") || lower.includes("schema cache")) {
-    return "Table missing. Create public.contact_messages with the SQL in supabase/contact_messages.sql.";
+    return "Something went wrong on our side. Please try again in a moment.";
   }
   if (lower.includes("not configured") || lower.includes("missing")) {
-    return message;
+    return "The contact form is temporarily unavailable. Please email info@belugaeducorp.com.";
   }
 
-  return message;
+  return "We couldn’t send your message right now. Please try again, or email info@belugaeducorp.com.";
 }
 
 export function ContactForm() {
@@ -49,7 +49,7 @@ export function ContactForm() {
     if (!supabase) {
       setStatus("error");
       setError(
-        "Supabase is not configured. Copy .env.example to .env.local and add NEXT_PUBLIC_SUPABASE_URL + NEXT_PUBLIC_SUPABASE_ANON_KEY, then restart npm run dev. (Same env pattern you will use on Pelagic.)",
+        "The contact form is temporarily unavailable. Please email info@belugaeducorp.com.",
       );
       return;
     }
@@ -70,11 +70,6 @@ export function ContactForm() {
 
   return (
     <form className="contact-form" onSubmit={onSubmit} noValidate={false}>
-      <p className="note">
-        Submissions go to Supabase (<code>contact_messages</code>). Use this as
-        practice before wiring Pelagic&apos;s contact form the same way.
-      </p>
-
       <label>
         Your name
         <input type="text" name="name" required autoComplete="name" />
@@ -98,14 +93,13 @@ export function ContactForm() {
 
       {status === "success" ? (
         <p className="form-success" role="status">
-          Message sent. Check the row in Supabase → Table Editor →
-          contact_messages.
+          Thank you — your message has been sent. Our team will get back to you
+          soon.
         </p>
       ) : null}
 
       {status === "error" && error ? (
         <p className="form-error" role="alert">
-          <strong>Supabase error (practice this before Pelagic):</strong>{" "}
           {error}
         </p>
       ) : null}
