@@ -1,8 +1,8 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { BelugaLogo } from "@/components/BelugaLogo";
 
 const links = [
   { href: "/", label: "Home" },
@@ -23,19 +23,8 @@ export function Header() {
   return (
     <header className="site-header">
       <div className="wrap nav">
-        <Link className="brand" href="/">
-          <Image
-            src="/images/logo.jpg"
-            alt="Beluga Education Corp logo"
-            width={96}
-            height={96}
-            className="brand-logo"
-            priority
-          />
-          <span className="brand-text">
-            <span className="brand-name">Beluga Education Corp</span>
-            <span className="brand-tag">Maritime training</span>
-          </span>
+        <Link className="brand" href="/" aria-label="Beluga Education Corp home">
+          <BelugaLogo className="brand-logo" />
         </Link>
         <nav aria-label="Primary">
           <ul className="nav-links">

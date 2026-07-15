@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { BelugaLogo } from "@/components/BelugaLogo";
 
 export function Footer() {
   const year = new Date().getFullYear();
@@ -8,8 +9,10 @@ export function Footer() {
       <div className="wrap">
         <div className="footer-grid">
           <div>
-            <p className="footer-brand">Beluga Education Corp</p>
-            <p>
+            <Link href="/" aria-label="Beluga Education Corp home">
+              <BelugaLogo className="footer-logo" variant="dark" />
+            </Link>
+            <p style={{ marginTop: "0.85rem" }}>
               Maritime education for alternative fuels and a sustainable energy
               future.
             </p>
