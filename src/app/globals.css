@@ -2,7 +2,7 @@
 
 :root {
   --ink: #16322c;
-  --muted: #4d6a63;
+  --muted: #2f4a44;
   --line: #d5e5df;
   --bg: #f3f8f6;
   --brand: #1f7a66;
@@ -188,7 +188,7 @@ img {
   gap: 1rem;
   padding: clamp(2rem, 5vw, 4rem);
   background:
-    linear-gradient(160deg, #1f7a66 0%, #176355 55%, #0f4a40 100%);
+    linear-gradient(160deg, #0f4a40 0%, #0c3a33 55%, #082e29 100%);
 }
 
 .hero-copy .brand-mark {
@@ -197,7 +197,7 @@ img {
   font-size: clamp(1.55rem, 3vw, 2.1rem);
   font-weight: 700;
   letter-spacing: -0.03em;
-  color: #e8f6f1;
+  color: #ffffff;
   animation: rise 0.8s ease-out both;
 }
 
@@ -209,13 +209,14 @@ img {
   font-weight: 600;
   letter-spacing: -0.02em;
   max-width: 14ch;
+  color: #ffffff;
   animation: rise 0.9s ease-out 0.06s both;
 }
 
 .hero-copy p {
   margin: 0;
   max-width: 32rem;
-  color: rgba(247, 251, 249, 0.92);
+  color: rgba(255, 255, 255, 0.95);
   font-size: 1.05rem;
   animation: rise 1s ease-out 0.12s both;
 }
@@ -540,7 +541,7 @@ img {
 .contact-aside h2 {
   margin: 0 0 0.75rem;
   font-family: var(--font-display);
-  color: var(--sea);
+  color: var(--ink);
   font-size: 1.35rem;
 }
 
@@ -548,7 +549,7 @@ img {
   margin: 0;
   padding: 0;
   list-style: none;
-  color: var(--muted);
+  color: var(--ink);
 }
 
 .contact-lines li + li {
@@ -563,9 +564,9 @@ img {
 .contact-form label {
   display: grid;
   gap: 0.4rem;
-  font-weight: 600;
-  font-size: 0.9rem;
-  color: var(--sea);
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--ink);
 }
 
 .contact-form input,

@@ -5,8 +5,8 @@ type BelugaLogoProps = {
 
 /** Clean Beluga wordmark — no stray line artifacts from the JPG */
 export function BelugaLogo({ className, variant = "light" }: BelugaLogoProps) {
-  const text = variant === "dark" ? "#f7fbf9" : "#1a7363";
-  const bar = variant === "dark" ? "#9edcc4" : "#8fd9b0";
+  const text = variant === "dark" ? "#f7fbf9" : "#0f3f36";
+  const bar = variant === "dark" ? "#9edcc4" : "#1f7a66";
 
   return (
     <svg
