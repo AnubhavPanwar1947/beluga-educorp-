@@ -13,8 +13,8 @@ export default function ContactPage() {
           <p className="eyebrow">Contact</p>
           <h1>Get in Touch with Us</h1>
           <p className="section-lead">
-            Send a message — saved to Supabase for Beluga practice (same pattern
-            as Pelagic later).
+            We&apos;d love to hear from you. Send a message and our team will
+            respond as soon as we can.
           </p>
         </div>
       </header>
