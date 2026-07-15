@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Contact | Beluga Education Corp</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="wrap nav">
+        <a class="brand" href="index.html">Beluga Education Corp</a>
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="programs.html">Programs</a></li>
+          <li><a href="admissions.html">Admissions</a></li>
+          <li><a href="contact.html" aria-current="page">Contact</a></li>
+        </ul>
+      </div>
+    </header>
+
+    <main class="section wrap">
+      <h1>Contact</h1>
+      <p class="section-lead">Get in touch with us</p>
+
+      <div class="contact-grid">
+        <form
+          class="prose contact-form"
+          action="mailto:info@belugaeducorp.com"
+          method="post"
+          enctype="text/plain"
+        >
+          <p class="note">
+            Simple mailto form for first deploy. Ask boss for the real contact
+            email, then we can switch to DreamHost form handler or Formspree.
+          </p>
+          <label>
+            Your name
+            <input type="text" name="name" required />
+          </label>
+          <label>
+            Your email
+            <input type="email" name="email" required />
+          </label>
+          <label>
+            Subject
+            <input type="text" name="subject" required />
+          </label>
+          <label>
+            Message
+            <textarea name="message" rows="5" required></textarea>
+          </label>
+          <button type="submit" class="button">Send</button>
+        </form>
+
+        <div class="prose">
+          <h2>Contact information</h2>
+          <p>
+            Confirm phone, email, and office address with your boss — the
+            current Wix site shows a contact form but limited public contact
+            details.
+          </p>
+          <p><strong>Website:</strong> belugaeducorp.com</p>
+          <p><strong>Email:</strong> info@belugaeducorp.com (confirm)</p>
+        </div>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">© Beluga Education Corp</div>
+    </footer>
+  </body>
+</html>

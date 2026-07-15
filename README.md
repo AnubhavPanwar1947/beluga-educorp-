@@ -1,43 +1,54 @@
-# Beluga Edu Corp
+# Beluga Education Corp
 
-Simple multi-page website for **[belugaeducorp.com](https://belugaeducorp.com)**.
+Next.js rebuild of **[belugaeducorp.com](https://www.belugaeducorp.com/)**, ready to static-export and host on DreamHost.
 
-- **Stack:** static HTML + CSS (DreamHost-friendly)
-- **Hosting plan:** build here → upload to DreamHost shared hosting
-- **Pelagic Marine:** stays on Vercel; DreamHost can still hold the Pelagic **domain/email/DNS** later
+## Stack
 
-## Pages (5)
+- **Next.js** (App Router) + TypeScript + Tailwind
+- **Static export** → upload `out/` to DreamHost shared hosting
+- **Supabase** contact form (`contact_messages`) — practice for Pelagic
 
-1. Home — `index.html`
-2. About — `about.html`
-3. Programs — `programs.html`
-4. Contact — `contact.html`
-5. Admissions — `admissions.html`
+## Pages
 
-## Local preview
+1. Home — `/`
+2. About — `/about/`
+3. Programs — `/programs/`
+4. Admissions — `/admissions/`
+5. Contact — `/contact/` (writes to Supabase)
 
-Open `index.html` in a browser, or from this folder:
-
-```powershell
-npx --yes serve .
-```
-
-## Deploy to DreamHost (short)
-
-1. Get DreamHost access from boss (see `BOSS-ASK-LIST.md`)
-2. Backup current Beluga site
-3. Upload these files into the `belugaeducorp.com` web folder
-4. Confirm `https://belugaeducorp.com` loads
-5. Fix live errors using logs + checklist in `BOSS-ASK-LIST.md`
-
-## GitHub remote
-
-Create an empty repo named `beluga-educorp` under your GitHub account, then:
+## Local setup
 
 ```powershell
 cd C:\Users\Admin\Projects\beluga-educorp
-git remote add origin https://github.com/YOUR_USERNAME/beluga-educorp.git
-git add .
-git commit -m "Initial Beluga Edu Corp static site scaffold."
-git push -u origin main
+npm install
+copy .env.example .env.local
 ```
+
+Fill Supabase values in `.env.local`, then in Supabase SQL Editor run:
+
+`supabase/contact_messages.sql`
+
+```powershell
+npm run dev
+```
+
+Open http://localhost:3000
+
+## Build for DreamHost
+
+```powershell
+npm run build
+```
+
+Upload the contents of the `out/` folder to the Beluga web root on DreamHost.  
+See `DREAMHOST-DEPLOY.md`.
+
+## Supabase practice (for Pelagic later)
+
+Contact form errors are written in plain English in the UI (missing env, bad key, RLS, missing table). Fix those here first — same patterns will show up on Pelagic.
+
+Details: `SUPABASE.md`
+
+## Legacy HTML
+
+Previous static HTML scaffold is in `legacy-static/` (reference only).

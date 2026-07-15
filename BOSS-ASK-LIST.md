@@ -94,15 +94,22 @@ Ask:
 
 ---
 
-## Minimum you need **before coding deploy**
+## Supabase (for Contact form practice — free tier OK)
 
-You can start building the site with only logo + basic text.  
+- [ ] Create Supabase project (or reuse one you will also use for Pelagic testing)
+- [ ] Share only that you created it — do **not** paste service_role keys in chat
+- [ ] Confirm contact form destination: save in Supabase table is OK for now?
+
+## Minimum you need **before live deploy**
+
+You can keep coding locally with only logo + basic text.  
 You **must not upload over the live site** until you have:
 
 1. DreamHost login **or** SFTP access  
 2. Confirmation email/DNS must not break  
 3. Permission to backup + replace files  
 4. Web root folder path  
+5. Supabase URL + anon key in `.env.local` before `npm run build` (baked into static files)  
 
 ---
 
