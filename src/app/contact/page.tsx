@@ -5,6 +5,11 @@ export const metadata: Metadata = {
   title: "Contact",
 };
 
+const OFFICE_ADDRESS = "9, Keshav Puram, Dehradun, Uttarakhand, India";
+const MAPS_QUERY = encodeURIComponent(OFFICE_ADDRESS);
+const MAPS_EMBED = `https://maps.google.com/maps?q=${MAPS_QUERY}&z=15&output=embed`;
+const MAPS_LINK = `https://www.google.com/maps/search/?api=1&query=${MAPS_QUERY}`;
+
 export default function ContactPage() {
   return (
     <>
@@ -51,6 +56,27 @@ export default function ContactPage() {
                 </a>
               </li>
             </ul>
+
+            <div className="map-block">
+              <h3>Find us on the map</h3>
+              <div className="map-frame">
+                <iframe
+                  title="Beluga Education Corp — India Office map"
+                  src={MAPS_EMBED}
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  allowFullScreen
+                />
+              </div>
+              <a
+                className="map-link"
+                href={MAPS_LINK}
+                target="_blank"
+                rel="noreferrer"
+              >
+                Open in Google Maps
+              </a>
+            </div>
           </aside>
         </div>
       </section>
