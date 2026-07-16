@@ -15,8 +15,8 @@
   --white: #ffffff;
   --danger: #9b2c2c;
   --ok: #1b6b4a;
-  --font-display: var(--font-display), Georgia, "Times New Roman", serif;
-  --font-body: var(--font-body), system-ui, sans-serif;
+  --font-display: var(--font-cormorant), Georgia, "Times New Roman", serif;
+  --font-body: var(--font-inter), system-ui, sans-serif;
   --shadow-soft: 0 20px 50px rgba(15, 63, 54, 0.12);
 }
 
@@ -25,8 +25,8 @@
   --color-muted: var(--muted);
   --color-brand: var(--brand);
   --color-sea: var(--sea);
-  --font-sans: var(--font-body);
-  --font-serif: var(--font-display);
+  --font-sans: var(--font-inter);
+  --font-serif: var(--font-cormorant);
 }
 
 * {
@@ -42,11 +42,44 @@ body {
   min-height: 100%;
   color: var(--ink);
   font-family: var(--font-body);
+  font-size: 1rem;
   line-height: 1.65;
-  background:
-    radial-gradient(900px 500px at 100% -10%, rgba(196, 160, 53, 0.12), transparent 55%),
-    radial-gradient(800px 480px at -10% 20%, rgba(31, 122, 102, 0.1), transparent 50%),
-    linear-gradient(180deg, #eef6f3 0%, var(--bg) 40%, #eaf3f0 100%);
+  font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--bg);
+  background-image:
+    radial-gradient(ellipse 120% 70% at 50% -15%, rgba(243, 248, 246, 0.95), transparent 55%),
+    radial-gradient(ellipse 65% 45% at 0% 100%, rgba(229, 240, 236, 0.5), transparent 50%),
+    radial-gradient(ellipse 45% 35% at 100% 55%, rgba(31, 122, 102, 0.08), transparent 45%),
+    radial-gradient(rgba(31, 122, 102, 0.07) 1.25px, transparent 1.25px);
+  background-size: 100% 100%, 100% 100%, 100% 100%, 44px 44px;
+  background-attachment: fixed;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .reveal-on-scroll {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .hero-photo img {
+    animation: none !important;
+    transform: none !important;
+  }
 }
 
 a {
@@ -178,8 +211,8 @@ img {
   height: 100%;
   object-fit: cover;
   object-position: center 30%;
-  animation: drift 20s ease-in-out infinite alternate;
-  transform: scale(1.04);
+  animation: hero-ken-burns 28s ease-in-out infinite alternate;
+  transform: scale(1.06);
 }
 
 .hero-copy {
@@ -189,6 +222,28 @@ img {
   padding: clamp(2rem, 5vw, 4rem);
   background:
     linear-gradient(160deg, #0f4a40 0%, #0c3a33 55%, #082e29 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-copy::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    115deg,
+    transparent 40%,
+    rgba(255, 255, 255, 0.06) 50%,
+    transparent 60%
+  );
+  background-size: 200% 100%;
+  animation: hero-shimmer 11s ease-in-out infinite alternate;
+}
+
+.hero-copy > * {
+  position: relative;
+  z-index: 1;
 }
 
 .hero-copy .brand-mark {
@@ -232,13 +287,66 @@ img {
   }
 }
 
-@keyframes drift {
+@keyframes hero-ken-burns {
   from {
-    transform: scale(1.04) translate3d(0, 0, 0);
+    transform: scale(1.06) translate3d(0, 0, 0);
   }
   to {
-    transform: scale(1.08) translate3d(-1%, -1%, 0);
+    transform: scale(1.14) translate3d(-2%, -1.5%, 0);
   }
+}
+
+@keyframes hero-shimmer {
+  from {
+    background-position: 100% 0;
+  }
+  to {
+    background-position: 0% 0;
+  }
+}
+
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(22px);
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal-on-scroll.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.feature,
+.program-item,
+.vision-photo,
+.button {
+  transition: transform 0.35s ease, box-shadow 0.35s ease, background 0.2s ease;
+}
+
+.feature:hover,
+.program-item:hover {
+  transform: translateY(-2px);
+}
+
+.vision-photo:hover {
+  transform: translateY(-3px);
 }
 
 .page-band {
