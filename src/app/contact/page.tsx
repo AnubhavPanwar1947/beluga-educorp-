@@ -18,8 +18,8 @@ export default function ContactPage() {
           <p className="eyebrow">Contact</p>
           <h1>Get in Touch with Us</h1>
           <p className="section-lead">
-            We&apos;d love to hear from you. Send a message and our team will
-            respond as soon as we can.
+            Send a message and we&apos;ll reply soon. You&apos;ll also get a
+            confirmation email that we received your enquiry.
           </p>
         </div>
       </header>

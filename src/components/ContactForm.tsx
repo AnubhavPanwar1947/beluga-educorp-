@@ -1,12 +1,26 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 
 type Status = "idle" | "loading" | "success" | "error";
 
 export function ContactForm() {
   const [status, setStatus] = useState<Status>("idle");
   const [error, setError] = useState<string | null>(null);
+  const [startedAt, setStartedAt] = useState(() => Date.now());
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("sent") === "1") {
+      setStatus("success");
+    }
+    if (params.get("error") === "1") {
+      setStatus("error");
+      setError(
+        "We couldn’t send your message. Please try again or email info@belugaeducorp.com.",
+      );
+    }
+  }, []);
 
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -15,72 +29,86 @@ export function ContactForm() {
 
     const form = event.currentTarget;
     const data = new FormData(form);
-    const payload = {
-      name: String(data.get("name") ?? "").trim(),
-      email: String(data.get("email") ?? "").trim(),
-      subject: String(data.get("subject") ?? "").trim(),
-      message: String(data.get("message") ?? "").trim(),
-    };
+    data.set("form_started_at", String(startedAt));
 
     try {
-      // Practice Pelagic-style flow: browser → Next.js API → Supabase
-      const response = await fetch("/api/contact", {
+      // DreamHost PHP handler (no paid third-party APIs)
+      const response = await fetch("/send-mail.php", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
+        body: data,
+        headers: {
+          Accept: "application/json",
+          "X-Requested-With": "XMLHttpRequest",
+        },
       });
 
       const result = (await response.json().catch(() => null)) as {
         ok?: boolean;
         error?: string;
+        message?: string;
       } | null;
 
       if (!response.ok || !result?.ok) {
         setStatus("error");
         setError(
           result?.error ||
-            "We couldn’t send your message right now. Please try again, or email info@belugaeducorp.com.",
+            result?.message ||
+            "We couldn’t send your message right now. Please email info@belugaeducorp.com.",
         );
         return;
       }
 
       form.reset();
+      setStartedAt(Date.now());
       setStatus("success");
     } catch {
       setStatus("error");
       setError(
-        "We couldn’t reach our servers. Please check your connection and try again.",
+        "Contact email works after the site is uploaded to DreamHost. Locally, open the design pages; on live, this form sends mail via DreamHost.",
       );
     }
   }
 
   return (
     <form className="contact-form" onSubmit={onSubmit} noValidate={false}>
+      {/* Honeypot — hidden from real users */}
+      <div className="hp-field" aria-hidden="true">
+        <label>
+          Company website
+          <input
+            type="text"
+            name="company_website"
+            tabIndex={-1}
+            autoComplete="off"
+          />
+        </label>
+      </div>
+
       <label>
         Your name
-        <input type="text" name="name" required autoComplete="name" />
+        <input type="text" name="name" required autoComplete="name" maxLength={120} />
       </label>
       <label>
         Your email
-        <input type="email" name="email" required autoComplete="email" />
+        <input type="email" name="email" required autoComplete="email" maxLength={180} />
       </label>
       <label>
         Subject
-        <input type="text" name="subject" required />
+        <input type="text" name="subject" required maxLength={180} />
       </label>
       <label>
         Message
-        <textarea name="message" rows={5} required />
+        <textarea name="message" rows={5} required maxLength={4000} />
       </label>
 
       <button type="submit" className="button" disabled={status === "loading"}>
-        {status === "loading" ? "Sending…" : "Send"}
+        {status === "loading" ? "Sending…" : "Send message"}
       </button>
 
       {status === "success" ? (
         <p className="form-success" role="status">
-          Thank you — your message has been sent. Our team will get back to you
-          soon.
+          Thank you — your message has been sent. You should also receive a
+          confirmation email shortly.
         </p>
       ) : null}
 

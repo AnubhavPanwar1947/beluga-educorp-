@@ -1,54 +1,34 @@
 # Beluga Education Corp
 
-Next.js rebuild of **[belugaeducorp.com](https://www.belugaeducorp.com/)**, ready to static-export and host on DreamHost.
+Static Next.js site for **DreamHost shared hosting** (no paid third-party form APIs).
 
 ## Stack
 
-- **Next.js** (App Router) + TypeScript + Tailwind
-- **Static export** → upload `out/` to DreamHost shared hosting
-- **Supabase** contact form (`contact_messages`) — practice for Pelagic
+- Next.js → **static export** (`out/`)
+- Beautiful UI with Cormorant + Inter
+- Contact form → DreamHost **`send-mail.php`**
+  - Email to `info@belugaeducorp.com`
+  - Auto-reply to visitor: “we received your message”
+  - Honeypot + rate limit + header sanitizing
 
-## Pages
-
-1. Home — `/`
-2. About — `/about/`
-3. Programs — `/programs/`
-4. Admissions — `/admissions/`
-5. Contact — `/contact/` (writes to Supabase)
-
-## Local setup
+## Local preview (design)
 
 ```powershell
 cd C:\Users\Admin\Projects\beluga-educorp
-npm install
-copy .env.example .env.local
+npm.cmd run dev
 ```
 
-Fill Supabase values in `.env.local`, then in Supabase SQL Editor run:
-
-`supabase/contact_messages.sql`
-
-```powershell
-npm run dev
-```
-
-Open http://localhost:3000
+Open http://localhost:3000  
+(Contact email send works after DreamHost upload — PHP is not available in `next dev`.)
 
 ## Build for DreamHost
 
 ```powershell
-npm run build
+npm.cmd run build
 ```
 
-Upload the contents of the `out/` folder to the Beluga web root on DreamHost.  
-See `DREAMHOST-DEPLOY.md`.
+Upload **everything inside `out/`** to the Beluga web root.
 
-## Supabase practice (for Pelagic later)
+## Go live
 
-Contact form errors are written in plain English in the UI (missing env, bad key, RLS, missing table). Fix those here first — same patterns will show up on Pelagic.
-
-Details: `SUPABASE.md`
-
-## Legacy HTML
-
-Previous static HTML scaffold is in `legacy-static/` (reference only).
+Follow **`GO-LIVE-TODAY.md`** (Fully Hosted → FileZilla → DNS away from Wix).
